@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>test post</title>
+		
+		<script type="text/javascript">
+			function formSubmit() {
+				var form = document.getElementById("postForm");
+				var action = document.getElementById("action");
+				var request = document.getElementById("request");
+				form.action = action.value;
+				form.submit();
+			}
+		</script>
+		
+	</head>
+	<body>
+		<form id="postForm" action="" method="post">
+			<label>Action:</label>
+			<input id="action" type="text" value="http://192.168.1.2/"/>
+			<br/>
+			
+			<label>Request:</label>
+			<textarea id="request" name="payload" cols="40" rows="5"></textarea>
+			<br/>
+			
+			<button onclick="formSubmit()" type="button">Submit</button>
+		</form>
+	</body>
+</html>		
+			
