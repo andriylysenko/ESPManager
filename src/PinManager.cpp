@@ -20,7 +20,7 @@ PinManager::~PinManager() {
 	}
 }
 
-void PinManager::registerPin(int pin, String name, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinHandlerFunction handlerFanction) {
+void PinManager::registerPin(int pin, String name, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinReaderFunction readerFunction, PinManager::TPinHandlerFunction handlerFanction) {
 	if (direction == IN) {
 		pinMode(pin, INPUT);
 	} else {
@@ -33,6 +33,7 @@ void PinManager::registerPin(int pin, String name, Direction direction, PinType 
 	pinHandler->_direction = direction;
 	pinHandler->_pinType = pinType;
 	pinHandler->_pinEvent = pinEvent;
+	pinHandler->_readerFunction = readerFunction;
 	pinHandler->_handlerFunction = handlerFanction;
 
 	if (!_firstPinHandler) {
@@ -41,6 +42,14 @@ void PinManager::registerPin(int pin, String name, Direction direction, PinType 
 		pinHandler->addNext(_firstPinHandler);
 		_firstPinHandler = pinHandler;
 	}
+}
+
+void PinManager::registerPin(int pin, String name, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinHandlerFunction handlerFanction) {
+	registerPin(pin, name, direction, pinType, pinEvent, nullptr, handlerFanction);
+}
+
+void PinManager::registerPin(int pin, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinReaderFunction readerFunction, PinManager::TPinHandlerFunction handlerFanction) {
+	registerPin(pin, "pin" + String(pin), direction, pinType, pinEvent, readerFunction, handlerFanction);
 }
 
 void PinManager::registerPin(int pin, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinHandlerFunction handlerFanction) {

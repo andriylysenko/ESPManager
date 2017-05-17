@@ -21,6 +21,7 @@ public:
 	virtual ~PinManager();
 
 	typedef std::function<void(int, int)> TPinHandlerFunction;
+	typedef std::function<int(int)> TPinReaderFunction;
 
 	struct PinHandler {
 			int _pin;
@@ -29,9 +30,14 @@ public:
 			PinType _pinType;
 			PinEvent _pinEvent;
 			PinManager::TPinHandlerFunction _handlerFunction;
+			PinManager::TPinReaderFunction _readerFunction;
 			int _value;
 
 			int read() {
+				if (_readerFunction != nullptr) {
+					return _readerFunction(_pin);
+				}
+
 				if (_pinType == DIGITAL) {
 					return digitalRead(_pin);
 				} else {
@@ -101,7 +107,9 @@ public:
 			PinHandler* _next = nullptr;
 		};
 
+	void registerPin(int pin, String name, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinReaderFunction readerFunction, PinManager::TPinHandlerFunction handlerFanction);
 	void registerPin(int pin, String name, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinHandlerFunction handlerFanction);
+	void registerPin(int pin, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinReaderFunction readerFunction, PinManager::TPinHandlerFunction handlerFanction);
 	void registerPin(int pin, Direction direction, PinType pinType, PinEvent pinEvent, PinManager::TPinHandlerFunction handlerFanction);
 	void registerPin(int pin, String name, Direction direction, PinType pinType);
 	void registerPin(int pin, Direction direction, PinType pinType);
