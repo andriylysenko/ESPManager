@@ -1,7 +1,7 @@
 function loadMqttContent() {
 	removeContent(document.getElementById("content"));
 
-	appendChild(document.getElementById("content"), createSearchBox());
+	//appendChild(document.getElementById("content"), createSearchBox());
 
 	var mcb = document.createElement("button");
 	mcb.setAttribute("id", "mcb");

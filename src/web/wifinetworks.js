@@ -1,7 +1,7 @@
 function loadWifiNetworksContent() {
 	removeContent(document.getElementById("content"));
 				
-	appendChild(document.getElementById("content"), createSearchBox());
+	//appendChild(document.getElementById("content"), createSearchBox());
 				
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {

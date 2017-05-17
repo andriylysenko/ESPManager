@@ -42,14 +42,14 @@ function closeModal() {
 	removeContent(document.getElementById("modalBody"));
 }
 			
-function createSearchBox() {
+/*function createSearchBox() {
 	var inputElement = document.createElement("input");
 	inputElement.setAttribute("id", "search");
 	inputElement.setAttribute("type", "text");
 	inputElement.setAttribute("class", "search edit");
 	inputElement.setAttribute("placeholder", "Search for Items...");
 	return inputElement;
-}
+}*/
 
 function createEdit(id, label, placeholder) {
 	var labelEl = document.createElement("label");

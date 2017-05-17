@@ -1,7 +1,7 @@
 function loadWifiStatusContent() {
 	removeContent(document.getElementById("content"));
 			
-	appendChild(document.getElementById("content"), createSearchBox());
+	//appendChild(document.getElementById("content"), createSearchBox());
 				
 	var startHotspotButton = document.createElement("button");
 	startHotspotButton.setAttribute("id", "startHotspotButton");
