@@ -46,7 +46,14 @@ public:
 private:
 	PubSubClient _pubSubClient;
 
-	PubSubHandler* _firstPubSubHandler;
+	PubSubHandler* _firstPubSubHandler = nullptr;
+
+	String _host;
+	int _port;
+	String _user;
+	String _password;
+
+	long _lastReconnectAttempt = 0;
 };
 
 #endif /* MQTTMANAGER_H_ */

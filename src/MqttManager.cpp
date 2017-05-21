@@ -22,9 +22,23 @@ MqttManager::~MqttManager() {
 }
 
 void MqttManager::start(String host, int port, String user, String password) {
+	_host = host;
+	_port = port;
+	_user = user;
+	_password = password;
+
 	if (_pubSubClient.connected()) {
 		_pubSubClient.disconnect();
 	}
+
+	PubSubHandler* handler = _firstPubSubHandler;
+	while (handler) {
+		PubSubHandler* currentHandler = handler;
+		handler = handler->next();
+		delete currentHandler;
+	}
+	_firstPubSubHandler = nullptr;
+
 	_pubSubClient.setServer(host.c_str(), port);
 
 	_pubSubClient.setCallback([this](char* topic, byte* payload, unsigned int length) {
@@ -93,6 +107,16 @@ void MqttManager::sendMessage(String topic, String message) {
 }
 
 void MqttManager::loop() {
+	if (!isConnected()) {
+		long now = millis();
+		if (now - _lastReconnectAttempt > 1000) {
+			_lastReconnectAttempt = now;
+			start(_host, _port, _user, _password);
+			if (isConnected()) {
+				_lastReconnectAttempt = 0;
+			}
+		}
+	}
 	_pubSubClient.loop();
 }
 
