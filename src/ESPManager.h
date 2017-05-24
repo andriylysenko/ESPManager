@@ -35,6 +35,9 @@ public:
 	void registerPin(int pin, String name, Direction direction, PinType pinType);
 	void registerPin(int pin, Direction direction, PinType pinType);
 
+	int getPinValue(int pin);
+	void setPinValue(int pin, int value);
+
 private:
 	void enableWifi();
 	void enableMqtt();

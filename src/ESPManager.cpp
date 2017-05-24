@@ -390,3 +390,10 @@ void ESPManager::registerPin(int pin, String name, Direction direction, PinType 
 void ESPManager::registerPin(int pin, Direction direction, PinType pinType) {
 	_pinManager.registerPin(pin, direction, pinType);
 }
+
+int ESPManager::getPinValue(int pin) {
+	return _pinManager.getPinValue(pin);
+}
+void ESPManager::setPinValue(int pin, int value) {
+	_pinManager.setPinValue(pin, value);
+}

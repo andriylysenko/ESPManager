@@ -31,14 +31,6 @@ void MqttManager::start(String host, int port, String user, String password) {
 		_pubSubClient.disconnect();
 	}
 
-	PubSubHandler* handler = _firstPubSubHandler;
-	while (handler) {
-		PubSubHandler* currentHandler = handler;
-		handler = handler->next();
-		delete currentHandler;
-	}
-	_firstPubSubHandler = nullptr;
-
 	_pubSubClient.setServer(host.c_str(), port);
 
 	_pubSubClient.setCallback([this](char* topic, byte* payload, unsigned int length) {
@@ -60,6 +52,14 @@ void MqttManager::start(String host, int port, String user, String password) {
 	(user.length() > 0 && password.length() > 0) ?
 		_pubSubClient.connect(String(ESP.getChipId()).c_str(), user.c_str(), password.c_str()) :
 		_pubSubClient.connect(String(ESP.getChipId()).c_str());
+
+	if (_pubSubClient.connected()) {
+		PubSubHandler* handler = _firstPubSubHandler;
+		while (handler) {
+			_pubSubClient.subscribe(handler->_topic.c_str());
+			handler = handler->next();
+		}
+	}
 }
 
 bool MqttManager::isConnected() {
