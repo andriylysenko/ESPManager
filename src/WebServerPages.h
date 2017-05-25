@@ -176,7 +176,7 @@ const char* MAIN_HTML =
 "<html>\
 	<head>\
 		<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\
-		<title>test post</title>\
+		<title>ESP Manager</title>\
 		<link rel=\"stylesheet\" type=\"text/css\" href=\"/main.css\">		\
 		<script async=\"false\" src=\"/table.js\"></script>\
 		<script async=\"false\" src=\"/wifistatus.js\"></script>\
