@@ -45,6 +45,17 @@ void setup() {
   espManager.registerPin(LED, "led", OUT, DIGITAL);
   Serial.println("pins are registered");
 
+  String topic = String(ESP.getChipId()) + "/command/topic";
+
+  espManager.attachPubSubListener(topic, [](String topic, String payload) {
+    Serial.println("recieved message '" + payload + "' on topic " + topic);
+    if (payload == "ON") {
+      setRelayState(RELAY_ON);
+    } else {
+      setRelayState(RELAY_OFF);;
+    }
+  });
+
   setRelayState(relayState);
 
   espManager.begin();
