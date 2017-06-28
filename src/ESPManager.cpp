@@ -63,6 +63,7 @@ bool ESPManager::connectToWifiNetwork(String id, String pwd) {
 	WiFi.disconnect();
 
 	WiFi.mode(WIFI_STA);
+	WiFi.setAutoConnect(true);
 	WiFi.begin(id.c_str(), pwd.c_str());
 
 	int attempts = 50;
@@ -78,6 +79,7 @@ bool ESPManager::connectToWifiNetwork(String id, String pwd) {
 
 void ESPManager::setupAccessPoint() {
 	WiFi.mode(WIFI_AP_STA);
+	WiFi.setAutoConnect(false);
 	WiFi.softAPConfig(IPAddress(192, 168, 1, 1), IPAddress(192, 168, 1, 1), IPAddress(255, 255, 255, 0));
 	WiFi.softAP(AP_ID, AP_PASSWORD);
 
